@@ -35,9 +35,10 @@ Well, feel free to comb through the scripts and run on a testbed system. Conside
 
 *Total system data loss* can very well occur if you blindly run any Bash scripts here.
 
-This architecture and it's backup system were both developed and tested on an Arch Linux system. In that state, it wasn't quite ... safe. I have pivoted the project somewhat, and am also developing and testing mainly on Debian Linux. I have plans to test and outline functionality across as many Unix operating systems as I can get my hands on.
+This architecture and it's backup system were both developed and tested on an Arch Linux system, before being pivoted and developed further on a Debian Linux system. One goal of this project is to make this system usable on as many Unix operating systems as reasonably possible.
 
 In general, the following haven't been implemented yet:
+- Hard confirm Arch / Debian reliance - define bare requirements for this system (btrfs, Systemd, bash ...)
 - NFS / network based backups
 - Backup encryption
 
