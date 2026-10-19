@@ -3,10 +3,10 @@
 set -euo pipefail
 
 _PREFIX="/usr"
-_LIB_DIR="$_PREFIX/lib/usb-backup"
+_LIB_DIR="$_PREFIX/lib/btrsd"
 _BIN_DIR="$_PREFIX/bin"
 
-echo "--> Uninstalling btrfs-usb-backup system"
+echo "--> Uninstalling btrsd backup system"
 
 if [[ "$EUID" -ne 0 ]]; then
     echo "Run as root"
@@ -15,36 +15,35 @@ fi
 
 echo "--> Stopping and disabling systemd units"
 
-systemctl stop usb-backup.service 2>/dev/null || true
-systemctl stop usb-backup-reminder.service 2>/dev/null || true
-systemctl stop usb-backup-reminder.timer 2>/dev/null || true
+systemctl stop btrsd-main.service 2>/dev/null || true
+systemctl stop btrsd-reminder.service 2>/dev/null || true
+systemctl stop btrsd-reminder.timer 2>/dev/null || true
 
-systemctl disable usb-backup-reminder.timer 2>/dev/null || true
+systemctl disable btrsd-reminder.timer 2>/dev/null || true
 
 echo "--> Removing systemd unit files"
 
-rm -f /etc/systemd/system/usb-backup.service
-rm -f /etc/systemd/system/usb-backup-reminder.service
-rm -f /etc/systemd/system/usb-backup-reminder.timer
+rm -f /etc/systemd/system/btrsd-main.service
+rm -f /etc/systemd/system/btrsd-reminder.service
+rm -f /etc/systemd/system/btrsd-reminder.timer
 
 echo "--> Removing logrotate config"
 
-rm -f /etc/logrotate.d/usb-backup
+rm -f /etc/logrotate.d/btrsd
 
 echo "--> Removing library and scripts"
 
 rm -rf "$_LIB_DIR"
 
-rm -f "$_BIN_DIR"/usb-backup-*.sh
-rm -f "$_BIN_DIR"/usb-scrub-now.sh
+rm -f "$_BIN_DIR"/btrsd-*.sh
 
 echo ""
-read -rp "--> Remove udev rule? [y/N]: " REMOVE_UDEV
+read -rp "--> Remove udev rule? [y/N]: " _REMOVE_UDEV
 
-if [[ "$REMOVE_UDEV" =~ ^[Yy]$ ]]; then
+if [[ "$_REMOVE_UDEV" =~ ^[Yy]$ ]]; then
 
     echo "--> Removing udev rule"
-    rm -f /usr/lib/udev/rules.d/99-usb-backup.rules
+    rm -f /usr/lib/udev/rules.d/99-btrsd.rules
 
 else
 
@@ -53,18 +52,18 @@ else
 fi
 
 echo ""
-read -rp "--> Remove configuration and state data? [y/N]: " REMOVE_DATA
+read -rp "--> Remove configuration and state data? [y/N]: " _REMOVE_DATA
 
-if [[ "$REMOVE_DATA" =~ ^[Yy]$ ]]; then
+if [[ "$_REMOVE_DATA" =~ ^[Yy]$ ]]; then
 
-    echo "--> Removing /etc/usb-backup.conf"
-    rm -f /etc/usb-backup.conf
+    echo "--> Removing /etc/btrsd.conf"
+    rm -f /etc/btrsd.conf
 
-    echo "--> Removing /var/lib/usb-backup"
-    rm -rf /var/lib/usb-backup
+    echo "--> Removing /var/lib/btrsd"
+    rm -rf /var/lib/btrsd
 
-    echo "--> Removing /var/log/usb-backup"
-    rm -rf /var/log/usb-backup
+    echo "--> Removing /var/log/btrsd"
+    rm -rf /var/log/btrsd
 
 else
 
