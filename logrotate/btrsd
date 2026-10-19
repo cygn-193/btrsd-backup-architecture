@@ -1,0 +1,24 @@
+/var/log/btrsd/btrsd.log
+/var/log/btrsd/btrsd-error.log {
+
+    monthly
+    rotate 12
+    compress
+    missingok
+    notifempty
+    create 640 root root
+
+}
+
+/var/log/btrsd/btrsd-root-receive-dump.log
+/var/log/btrsd/btrsd-home-receive-dump.log
+/var/log/btrsd/btrsd-scrub-dump.log {
+
+    monthly
+    rotate 6
+    compress
+    missingok
+    notifempty
+    create 640 root root
+
+}
