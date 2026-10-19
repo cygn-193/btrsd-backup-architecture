@@ -1,0 +1,10 @@
+[Unit]
+Description=btrsd-main.service
+After=local-fs.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/lib/btrsd/btrsd-main.sh
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=btrsd

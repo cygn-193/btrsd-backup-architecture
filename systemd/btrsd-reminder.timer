@@ -1,0 +1,10 @@
+[Unit]
+Description=btrsd-reminder.timer
+
+[Timer]
+OnCalendar=Fri *-*-* 17:00:00
+Persistent=true
+Unit=btrsd-reminder.service
+
+[Install]
+WantedBy=timers.target

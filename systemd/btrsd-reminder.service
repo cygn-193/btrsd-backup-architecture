@@ -1,0 +1,10 @@
+[Unit]
+Description=btrsd-reminder.service
+After=local-fs.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/lib/btrsd/btrsd-reminder.sh
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=btrsd
