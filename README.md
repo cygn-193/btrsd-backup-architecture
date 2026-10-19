@@ -1,6 +1,6 @@
 # btrsd-backup-architecture
 
-Transparent, deterministic, idempotent backup system designed around Unix systems that use Btrfs, Systemd, udev, and Bash.
+Transparent, deterministic, idempotent backup system and architecture designed around Unix systems that use Btrfs, Systemd, udev, and Bash.
 
 Work in progress!
 
